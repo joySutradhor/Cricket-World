@@ -1,15 +1,26 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data ) => {
         if(data.password === data.confirmpPassword){
-            console.log("valid user")
+            Swal.fire({
+                position: 'top-center',
+                icon: 'success',
+                title: 'Registation Completed',
+                showConfirmButton: false,
+                timer: 1500
+              })
         }
         else{
-            console.log("invalid user")
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Password Not Match!',
+              })
         }
         console.log(data.password , data.confirmpPassword)
     };
