@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Providers/Providers';
+import Swal from 'sweetalert2';
+import { FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, formState: { errors } , reset } = useForm();
+    const { handleloginUser , handleGoogle} = useContext(AuthContext);
+
+    const navigate = useNavigate();
+    const googelNavgate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+    const onSubmit = data => {
+        handleloginUser(data.email , data.password)
+        .then(result => {
+            const data = result.user;
+            console.log(data)
+            reset()
+            Swal.fire({
+                position: 'top-center',
+                icon: 'success',
+                title: 'Login Completed',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            navigate(from, { replace: true })
+        })
+    };
+
+    const google = () => {
+        handleGoogle()
+    }
     return (
         <div className="hero min-h-screen ">
             <div className="hero-content flex-col">
@@ -32,7 +61,7 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                             <p className='my-5'>New this site ? <Link className='text-indigo-800' to="/register">Register</Link></p>
                         </div>
-
+                            <div className='flex justify-center items-center text-2xl'> <button onClick={google}><FaGoogle></FaGoogle></button> </div>
                     </form>
                 </div>
             </div>

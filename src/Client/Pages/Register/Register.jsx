@@ -5,8 +5,8 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../Providers/Providers';
 
 const Register = () => {
-    const { register, handleSubmit, formState: { errors }  , reset} = useForm();
-    const { handleRegisterUser , handleUpdateProfile } = useContext(AuthContext);
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const { handleRegisterUser, handleUpdateProfile } = useContext(AuthContext);
     const onSubmit = (data) => {
         if (data.password === data.confirmpPassword) {
 
@@ -22,17 +22,15 @@ const Register = () => {
                         .catch((err) => {
 
                         })
-                        reset()
+                    reset()
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'Registation Completed',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 })
-            Swal.fire({
-                position: 'top-center',
-                icon: 'success',
-                title: 'Registation Completed',
-                showConfirmButton: false,
-                timer: 1500
-            })
-
-
         }
         else {
             Swal.fire({

@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
 import userPhoto from "../../assets/user.png"
+import { useContext } from "react";
+import { AuthContext } from "../Providers/Providers";
 
 
 const Navbar = () => {
+  const {user , logout} = useContext(AuthContext)
+  if(user){
+    console.log(user)
+  }
+  const handleLogout = () => {
+    logout()
+    .then ()
+    .catch(err => { })
+  }
   const options = <>
     <li> <Link to="/">Home</Link> </li>
     <li> <Link to="/instructors">Instructors</Link> </li>
@@ -30,10 +41,14 @@ const Navbar = () => {
       <div className="navbar-end  ">
         <div className="flex gap-5">
           <div>
-             <Link to="/login"><button>Login</button></Link>
+             {
+              user ? <button onClick={handleLogout}> <Link to="/login">Log Out</Link> </button>  : <button> <Link to="/login">Login</Link> </button> 
+             }
           </div>
           <div>
-            <img className="w-[30px] h-[30px] rounded-md" src={userPhoto} alt="" />
+            {
+              user? <img className="w-[30px] h-[30px] rounded-md" src={user.photoURL} alt="" /> : <img className="w-[30px] h-[30px] rounded-md" src={userPhoto} alt="" />
+            }
           </div>
         </div>
       </div>
