@@ -1,28 +1,47 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../Providers/Providers';
 
 const Register = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data ) => {
-        if(data.password === data.confirmpPassword){
+    const { register, handleSubmit, formState: { errors }  , reset} = useForm();
+    const { handleRegisterUser , handleUpdateProfile } = useContext(AuthContext);
+    const onSubmit = (data) => {
+        if (data.password === data.confirmpPassword) {
+
+            const email = data.email;
+            const password = data.password;
+
+            handleRegisterUser(email, password)
+                .then(result => {
+                    const registeredUser = result.user;
+                    console.log(registeredUser)
+                    handleUpdateProfile(data.name, data.photUrl)
+                        .then(() => { })
+                        .catch((err) => {
+
+                        })
+                        reset()
+                })
             Swal.fire({
                 position: 'top-center',
                 icon: 'success',
                 title: 'Registation Completed',
                 showConfirmButton: false,
                 timer: 1500
-              })
+            })
+
+
         }
-        else{
+        else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Password Not Match!',
-              })
+            })
         }
-        console.log(data.password , data.confirmpPassword)
+        console.log(data.password, data.confirmpPassword)
     };
 
     return (
@@ -44,28 +63,28 @@ const Register = () => {
                                 <span className="label-text">Email</span>
                             </label>
                             <input type="email" placeholder="email" {...register("email", { required: true })} className="input input-bordered" />
-                              {errors.email && <span className='text-red-400'>This field is required</span>}
+                            {errors.email && <span className='text-red-400'>This field is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" placeholder="Password" {...register("password", { 
-                                required: true ,
-                                minLength : 6 ,
-                                pattern : /[A-Z][!@#$%&*]/
+                            <input type="password" placeholder="Password" {...register("password", {
+                                required: true,
+                                minLength: 6,
+                                pattern: /[A-Z][!@#$%&*]/
                             })} className="input input-bordered" />
 
-                              {errors.password && <span className='text-red-400'>This field is required</span>}
-                              {errors.password ?.type === 'minLength' && <p role="alert">Password less then 6 character</p>}
-                              {errors.password ?.type === 'pattern' && <p role="alert">Use a Capital latter or special character</p>}
+                            {errors.password && <span className='text-red-400'>This field is required</span>}
+                            {errors.password?.type === 'minLength' && <p role="alert">Password less then 6 character</p>}
+                            {errors.password?.type === 'pattern' && <p role="alert">Use a Capital latter or special character</p>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Confirm Password</span>
                             </label>
                             <input type="password" placeholder="Confirm password" {...register("confirmpPassword", { required: true })} className="input input-bordered" />
-                                 {errors.confirmpPassword && <span className='text-red-400'>This field is required</span>}   
+                            {errors.confirmpPassword && <span className='text-red-400'>This field is required</span>}
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
