@@ -6,6 +6,7 @@ import {
 import Main from '../Layout/Main';
 import Register from '../Pages/Register/Register';
 import Login from '../Pages/Login/Login';
+import Banner from '../Pages/Home/Banner';
 
   export const router = createBrowserRouter([
     {
@@ -14,7 +15,7 @@ import Login from '../Pages/Login/Login';
       children : [
        {
         path : "/" ,
-        element: <p>There is last projects</p>
+        element: <Banner></Banner>
        },
        {
         path : "/login" ,  
