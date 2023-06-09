@@ -8,6 +8,9 @@ import Register from '../Pages/Register/Register';
 import Login from '../Pages/Login/Login';
 import Banner from '../Pages/Home/Banner';
 import Home from '../Pages/Home/Home';
+import PopularClass from '../Pages/Classes/PopularClass';
+import Dashboard from '../../Dashboard/Dashboard';
+import SelectedClass from '../../Dashboard/Pages/SelectedClass';
 
   export const router = createBrowserRouter([
     {
@@ -19,6 +22,11 @@ import Home from '../Pages/Home/Home';
         element: <Home></Home>
        },
        {
+        path : "/classes",
+        element : <PopularClass></PopularClass>
+       } , 
+
+       {
         path : "/login" ,  
         element: <Login></Login>
        },
@@ -29,6 +37,16 @@ import Home from '../Pages/Home/Home';
        
       ]
     },
+    {
+      path: "/dashboard",
+      element : <Dashboard></Dashboard>,
+      children : [
+        {
+          path : "selectedClass" ,
+          element : <SelectedClass></SelectedClass>
+        }
+      ]
+    }
    
      
   ]);

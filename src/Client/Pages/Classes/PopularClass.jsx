@@ -12,7 +12,7 @@ const PopularClass = () => {
     return (
         <div>
 
-            <h2 className='md:py-12 text-2xl font-serif font-bold'>-------------- Popular Classes --------------</h2>
+            <h2 className='md:py-12 text-2xl font-serif font-bold'>---- Classes ----</h2>
 
             <div className='grid grid-cols-3 gap-5'>
                 {
