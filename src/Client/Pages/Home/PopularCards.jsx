@@ -2,30 +2,45 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Providers/Providers';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const PopularCards = ({ allClasses }) => {
     const { className, instructorEmail, instructorName, price, availableSeats, classImage } = allClasses;
-    const { user } = useContext(AuthContext) ;
-    const navigate = useNavigate() ;
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const [btnDisable, setBtnDisable] = useState(false)
+
+
     const handleSelectClass = ({ allClasses }) => {
         if (user) {
-            fetch('http://localhost:5000/studentsClass')
+            const studentSingleClass = { className, instructorEmail, instructorName, price, availableSeats, classImage }
+            fetch('http://localhost:5000/studentsClass', {
+                method: "POST",
+                headers: {
+                    'content-type': "application/json"
+                },
+                body: JSON.stringify(studentSingleClass)
+            })
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
+                        setBtnDisable(true)
                         Swal.fire({
-                            position: 'top-end',
+                            position: 'top-center',
                             icon: 'success',
                             title: 'Your work has been saved',
                             showConfirmButton: false,
                             timer: 1500
                         })
                         console.log("Data inserted")
+
                     }
                 })
         }
-        else{
+        else {
             Swal.fire({
                 title: 'Please Login Now',
                 icon: 'warning',
@@ -33,11 +48,11 @@ const PopularCards = ({ allClasses }) => {
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Login Now!'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate("/login")
+                    navigate("/login", { state: { from: location } })
                 }
-              })
+            })
         }
     }
     return (
@@ -51,7 +66,10 @@ const PopularCards = ({ allClasses }) => {
                     <p className='text-left' >Price : ${price}</p>
                     <p className='text-left' >Contact : {instructorEmail}</p>
                     <div className="card-actions justify-end my-3">
-                        <button onClick={() => handleSelectClass(allClasses)} className="btn btn-outline btn-success">ADD now</button>
+                        <button
+                            disabled={btnDisable}
+                            onClick={() => handleSelectClass(allClasses)}
+                            className="btn btn-outline btn-success" >ADD now</button>
                     </div>
                 </div>
             </div>
