@@ -7,6 +7,7 @@ import Main from '../Layout/Main';
 import Register from '../Pages/Register/Register';
 import Login from '../Pages/Login/Login';
 import Banner from '../Pages/Home/Banner';
+import Home from '../Pages/Home/Home';
 
   export const router = createBrowserRouter([
     {
@@ -15,7 +16,7 @@ import Banner from '../Pages/Home/Banner';
       children : [
        {
         path : "/" ,
-        element: <Banner></Banner>
+        element: <Home></Home>
        },
        {
         path : "/login" ,  

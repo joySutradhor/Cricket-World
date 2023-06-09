@@ -1,9 +1,13 @@
 import React from 'react';
+import Banner from './Banner';
+import PopularClass from './PopularClass';
+import PrivateRoute from '../../Shared/PrivateRoute';
 
 const Home = () => {
     return (
         <div>
-            <h1>this is home page</h1>
+            <Banner></Banner>
+            <PopularClass></PopularClass>
         </div>
     );
 };

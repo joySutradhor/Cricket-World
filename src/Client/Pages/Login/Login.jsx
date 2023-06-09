@@ -33,6 +33,7 @@ const Login = () => {
 
     const google = () => {
         handleGoogle()
+        googelNavgate("/")
     }
     return (
         <div className="hero min-h-screen ">
