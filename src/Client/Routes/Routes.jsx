@@ -11,6 +11,7 @@ import Home from '../Pages/Home/Home';
 import PopularClass from '../Pages/Classes/PopularClass';
 import Dashboard from '../../Dashboard/Dashboard';
 import SelectedClass from '../../Dashboard/Pages/SelectedClass';
+import PrivateRoute from './../Shared/PrivateRoute';
 
   export const router = createBrowserRouter([
     {
@@ -39,7 +40,7 @@ import SelectedClass from '../../Dashboard/Pages/SelectedClass';
     },
     {
       path: "/dashboard",
-      element : <Dashboard></Dashboard>,
+      element : <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
       children : [
         {
           path : "selectedClass" ,

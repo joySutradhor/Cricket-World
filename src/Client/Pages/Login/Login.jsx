@@ -3,14 +3,14 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/Providers';
 import Swal from 'sweetalert2';
-import { FaGoogle } from 'react-icons/fa';
+import Socail from '../../Shared/Socail';
+
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } , reset } = useForm();
-    const { handleloginUser , handleGoogle} = useContext(AuthContext);
+    const { handleloginUser} = useContext(AuthContext);
 
     const navigate = useNavigate();
-    const googelNavgate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
@@ -31,10 +31,6 @@ const Login = () => {
         })
     };
 
-    const google = () => {
-        handleGoogle()
-        googelNavgate("/")
-    }
     return (
         <div className="hero min-h-screen ">
             <div className="hero-content flex-col">
@@ -62,7 +58,7 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                             <p className='my-5'>New this site ? <Link className='text-indigo-800' to="/register">Register</Link></p>
                         </div>
-                            <div className='flex justify-center items-center text-2xl'> <button onClick={google}><FaGoogle></FaGoogle></button> </div>
+                        <Socail></Socail>
                     </form>
                 </div>
             </div>

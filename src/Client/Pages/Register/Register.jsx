@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Providers/Providers';
+import Socail from '../../Shared/Socail';
+
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    const { handleRegisterUser, handleUpdateProfile } = useContext(AuthContext);
+    const { handleRegisterUser, handleUpdateProfile  } = useContext(AuthContext);
+   
     const onSubmit = (data) => {
         if (data.password === data.confirmpPassword) {
 
@@ -18,18 +21,34 @@ const Register = () => {
                     const registeredUser = result.user;
                     console.log(registeredUser)
                     handleUpdateProfile(data.name, data.photUrl)
-                        .then(() => { })
-                        .catch((err) => {
+                        .then(() => {
+                            const saveUser = {name: data.name , email : data.email , url : data.photUrl}
+                            fetch("http://localhost:5000/users" , {
+                                method : "POST" , 
+                                headers : {
+                                    "content-type" : "application/json"
+                                }, 
+                                body : JSON.stringify(saveUser)
+                            })
+                            .then(res => res.json())
+                            .then(user => {
+                                console.log(user , "user create")
+                                if(user.insertedId){
+                                    reset()
+                                    Swal.fire({
+                                        position: 'top-center',
+                                        icon: 'success',
+                                        title: 'Registation Completed',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                    Navigate("/")
+                                }
+                            } )
 
-                        })
-                    reset()
-                    Swal.fire({
-                        position: 'top-center',
-                        icon: 'success',
-                        title: 'Registation Completed',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+
+                         })
+                   
                 })
         }
         else {
@@ -41,6 +60,7 @@ const Register = () => {
         }
         console.log(data.password, data.confirmpPassword)
     };
+
 
     return (
         <div className="hero min-h-screen ">
@@ -98,6 +118,8 @@ const Register = () => {
                             <button className="btn btn-primary">Register</button>
                             <p className='my-5'>Already account ? <Link className='text-indigo-800' to="/login">Login</Link></p>
                         </div>
+
+                        <Socail></Socail>
 
                     </form>
                 </div>
