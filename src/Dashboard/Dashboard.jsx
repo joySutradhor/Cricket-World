@@ -3,6 +3,8 @@ import { Link, Outlet } from 'react-router-dom';
 
 
 const Dashboard = () => {
+
+    const isAdmin = true;
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -17,8 +19,15 @@ const Dashboard = () => {
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
                         {/* Sidebar content here */}
-                        <li><Link to="selectedClass">My Selected Classes</Link></li>
-                        <li><a>My Enrolled Classes</a></li>
+                        {
+                            isAdmin ? <>
+                                <li><a>Manage Classes</a></li>
+                                <li><Link to="allUsers">Manage Users</Link></li>
+                            </> : <>
+                                <li><Link to="selectedClass">My Selected Classes</Link></li>
+                                <li><a>My Enrolled Classes</a></li>
+                            </>
+                        }
                     </ul>
 
                 </div>

@@ -12,6 +12,7 @@ import PopularClass from '../Pages/Classes/PopularClass';
 import Dashboard from '../../Dashboard/Dashboard';
 import SelectedClass from '../../Dashboard/Pages/SelectedClass';
 import PrivateRoute from './../Shared/PrivateRoute';
+import AllUsers from '../../Dashboard/Admin/AllUsers';
 
   export const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ import PrivateRoute from './../Shared/PrivateRoute';
         {
           path : "selectedClass" ,
           element : <SelectedClass></SelectedClass>
+        } ,
+        {
+          path : "allusers" ,
+          element : <AllUsers></AllUsers>
         }
       ]
     }
