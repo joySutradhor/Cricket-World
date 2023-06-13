@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { AuthContext } from '../Client/Providers/Providers';
 
 
 const Dashboard = () => {
-
-    const isAdmin = true;
+    const {user} = useContext(AuthContext)
+    const [isAdmin , setAdmin] = useState("")
+    fetch(`http://localhost:5000/users/role/${user.email}`)
+    .then(res => res.json())
+    .then(data =>{
+        setAdmin(data.role)
+    })
+    
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -20,12 +27,22 @@ const Dashboard = () => {
                     <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
                         {/* Sidebar content here */}
                         {
-                            isAdmin ? <>
+                            isAdmin === 'admin' && <>
                                 <li><a>Manage Classes</a></li>
                                 <li><Link to="allUsers">Manage Users</Link></li>
-                            </> : <>
-                                <li><Link to="selectedClass">My Selected Classes</Link></li>
-                                <li><a>My Enrolled Classes</a></li>
+                            </>  
+                        }
+                        {
+                            isAdmin === "instructor" && <>
+                            <p>Add a Class</p>
+                            <p>My Classes</p>
+                            </>
+                        }
+                        {
+                            isAdmin === "student" && <>
+                            
+                            <p>studen</p>
+                            <p>done</p>
                             </>
                         }
                     </ul>
@@ -36,4 +53,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard; <h1>hello</h1>
+export default Dashboard; 

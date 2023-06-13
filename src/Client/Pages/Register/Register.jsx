@@ -22,7 +22,7 @@ const Register = () => {
                     console.log(registeredUser)
                     handleUpdateProfile(data.name, data.photUrl)
                         .then(() => {
-                            const saveUser = {name: data.name , email : data.email , url : data.photUrl}
+                            const saveUser = {name: data.name , email : data.email , url : data.photUrl , role : "student"}
                             fetch("http://localhost:5000/users" , {
                                 method : "POST" , 
                                 headers : {

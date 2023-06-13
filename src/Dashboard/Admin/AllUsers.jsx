@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Badge, Button, Mask, Table } from 'react-daisyui';
+import Swal from 'sweetalert2';
 
 const AllUsers = () => {
     const { data, refetch } = useQuery(["users"], async () => {
@@ -9,7 +10,50 @@ const AllUsers = () => {
 
     }
     )
-    console.log(data)
+
+    const handleMakeAdmin = (item) => {
+        console.log(item , item.id)
+        fetch(`http://localhost:5000/users/admin/${item._id}` , {
+            method : "PATCH"
+        })
+
+        .then(res => res.json())
+        .then (Userdata => {
+            refetch()
+            console.log(Userdata)
+            if(Userdata.modifiedCount){
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: `${item.name} is admin now`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+        })
+    }
+    const handleMakeinstructor = (item) => {
+        console.log(item , item.id)
+        fetch(`http://localhost:5000/users/instructor/${item._id}` , {
+            method : "PATCH"
+        })
+
+        .then(res => res.json())
+        .then (Userdata => {
+            refetch()
+            console.log(Userdata)
+            if(Userdata.modifiedCount){
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: `${item.name} is instructor now`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+        })
+    }
+
     return (
         <div>
 
@@ -21,7 +65,7 @@ const AllUsers = () => {
                         <span>Name</span>
                         <span>Email</span>
                         <span>Status</span>
-                        <span>Action</span>
+                        {/* <span>Action</span> */}
                         <span />
                     </Table.Head>
 
@@ -50,16 +94,16 @@ const AllUsers = () => {
                                 <div className='flex gap-1'>
                                     <div>
                                         {
-                                            item.role === "admin" ? <Button className='bg-green-200 btn-sm rounded '>Admin</Button> : <Button className='bg-green-200   btn-sm rounded'>Make Admin</Button>
+                                            item.role === "admin" ? <Button className=' btn-sm  '>Admin </Button> : <Button className='bg-green-200   btn-sm rounded' onClick={() => handleMakeAdmin(item)}>Make Admin</Button>
                                         }
                                     </div>
                                     {
-                                        item.role === "instructor" ? <Button className='bg-green-200 btn-sm rounded '>instructor</Button> : <Button className='bg-green-200   btn-sm rounded'>Make instructor</Button>
+                                        item.role === "instructor" ? <Button className='bg-green-200 btn-sm rounded '>instructor</Button> : <Button className='bg-green-200   btn-sm rounded' onClick={() => {handleMakeinstructor(item)}}>Make instructor</Button>
                                     }
                                 </div>
-                                <Button className='bg-red-400 btn-sm text-white'>
+                                {/* <Button className='bg-red-400 btn-sm text-white'>
                                     Delete
-                                </Button>
+                                </Button> */}
                             </Table.Row>
                             )
                         }
