@@ -7,7 +7,7 @@ const SelectedClass = () => {
     // if(isLoading) {
     //     <h1>Please wait</h1>
     // }
-    const totalCost =  data?.reduce((sum , item) => item.price + sum , 0) ;
+
     const handleDlete = (item) => {
         console.log(item)
         Swal.fire({
@@ -43,7 +43,7 @@ const SelectedClass = () => {
         <div>
             <div className="overflow-x-auto">
                 <div className='font-extralight  flex justify-between px-4'>
-                    <p>Total Cost : $ {totalCost} </p>
+                
                     <p>Selected Class : {data?.length}</p>
                 </div>
                 <table className="table">

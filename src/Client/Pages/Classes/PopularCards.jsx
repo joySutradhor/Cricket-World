@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const PopularCards = ({ allClasses }) => {
-    const { className, instructorEmail, instructorName, price, availableSeats, classImage } = allClasses;
+    console.log(allClasses)
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
@@ -14,9 +14,11 @@ const PopularCards = ({ allClasses }) => {
     const [btnDisable, setBtnDisable] = useState(false)
 
 
-    const handleSelectClass = ({ allClasses }) => {
+    const handleSelectClass = ( studentClasses ) => {
+
         if (user) {
-            const studentSingleClass = { className, instructorEmail, instructorName, price, availableSeats, classImage }
+            
+           const studentSingleClass = {name : studentClasses.name , email : studentClasses.email , price : studentClasses.price , instructor : studentClasses.instructor , seat : studentClasses.seat , url : studentClasses.url}
             fetch('http://localhost:5000/studentsClass', {
                 method: "POST",
                 headers: {
@@ -58,13 +60,13 @@ const PopularCards = ({ allClasses }) => {
     return (
         <div className='pb-12'>
             <div className="card card-compact w-96 bg-base-100 shadow-xl">
-                <figure><img src={classImage} alt="Shoes" /></figure>
+                <figure><img src={allClasses.url} alt="Shoes" /></figure>
                 <div className="card-body">
-                    <h2 className="card-title">{instructorName}</h2>
-                    <p className='text-left' >Topic : {className}</p>
-                    <p className='text-left' >Seat : {availableSeats}</p>
-                    <p className='text-left' >Price : ${price}</p>
-                    <p className='text-left' >Contact : {instructorEmail}</p>
+                    <h2 className="card-title">{allClasses.instructor}</h2>
+                    <p className='text-left' >Topic : {allClasses.name}</p>
+                    <p className='text-left' >Seat : {allClasses.seat}</p>
+                    <p className='text-left' >Price : ${allClasses.price}</p>
+                    <p className='text-left' >Contact : {allClasses.email}</p>
                     <div className="card-actions justify-end my-3">
                         <button
                             disabled={btnDisable}

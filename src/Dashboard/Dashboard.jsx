@@ -40,9 +40,8 @@ const Dashboard = () => {
                         }
                         {
                             isAdmin === "student" && <>
-
-                                <p>studen</p>
-                                <p>done</p>
+                                <li><Link to="selectedClass">My Selected Classes</Link></li>
+                                <li><Link to="myClass">My Class</Link></li>
                             </>
                         }
                     </ul>

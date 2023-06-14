@@ -12,52 +12,53 @@ const AllUsers = () => {
     )
 
     const handleMakeAdmin = (item) => {
-        console.log(item , item.id)
-        fetch(`http://localhost:5000/users/admin/${item._id}` , {
-            method : "PATCH"
+        console.log(item, item.id)
+        fetch(`http://localhost:5000/users/admin/${item._id}`, {
+            method: "PATCH"
         })
 
-        .then(res => res.json())
-        .then (Userdata => {
-            refetch()
-            console.log(Userdata)
-            if(Userdata.modifiedCount){
-                Swal.fire({
-                    position: 'top-center',
-                    icon: 'success',
-                    title: `${item.name} is admin now`,
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-            }
-        })
+            .then(res => res.json())
+            .then(Userdata => {
+                refetch()
+                console.log(Userdata)
+                if (Userdata.modifiedCount) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: `${item.name} is admin now`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
     }
     const handleMakeinstructor = (item) => {
-        console.log(item , item.id)
-        fetch(`http://localhost:5000/users/instructor/${item._id}` , {
-            method : "PATCH"
+        console.log(item, item.id)
+        fetch(`http://localhost:5000/users/instructor/${item._id}`, {
+            method: "PATCH"
         })
 
-        .then(res => res.json())
-        .then (Userdata => {
-            refetch()
-            console.log(Userdata)
-            if(Userdata.modifiedCount){
-                Swal.fire({
-                    position: 'top-center',
-                    icon: 'success',
-                    title: `${item.name} is instructor now`,
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-            }
-        })
+            .then(res => res.json())
+            .then(Userdata => {
+                refetch()
+                console.log(Userdata)
+                if (Userdata.modifiedCount) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: `${item.name} is instructor now`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
     }
 
     return (
         <div>
 
             <div className='overflow-x-auto'>
+                <h2 className='text-4xl my-10 font-serif'>Manage Users</h2>
                 <Table className="rounded-box">
                     <Table.Head>
 
@@ -98,7 +99,7 @@ const AllUsers = () => {
                                         }
                                     </div>
                                     {
-                                        item.role === "instructor" ? <Button className='bg-green-200 btn-sm rounded '>instructor</Button> : <Button className='bg-green-200   btn-sm rounded' onClick={() => {handleMakeinstructor(item)}}>Make instructor</Button>
+                                        item.role === "instructor" ? <Button className='bg-green-200 btn-sm rounded '>instructor</Button> : <Button className='bg-green-200   btn-sm rounded' onClick={() => { handleMakeinstructor(item) }}>Make instructor</Button>
                                     }
                                 </div>
                                 {/* <Button className='bg-red-400 btn-sm text-white'>

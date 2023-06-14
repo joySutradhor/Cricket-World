@@ -4,7 +4,7 @@ import PopularCards from './PopularCards';
 const PopularClass = () => {
     const [studentClass, setStudentClass] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/classes")
+        fetch("http://localhost:5000/classes/approved")
             .then(res => res.json())
             .then(data => setStudentClass(data))
     }, [])

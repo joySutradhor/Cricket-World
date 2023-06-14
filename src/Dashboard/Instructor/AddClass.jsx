@@ -2,9 +2,12 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../Client/Providers/Providers';
 
 const AddClass = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const {user} = useContext(AuthContext) ;
+    console.log(user.displayName)
     const onSubmit = (data) => {
         const saveUser = {name: data.name , url : data.photUrl , instructor : data.instructorName , price : data.price , seat : data.seats ,  email : data.email  , role : "pending"}
         fetch("http://localhost:5000/classes" , {
@@ -52,13 +55,13 @@ const AddClass = () => {
                                 <label className="label">
                                     <span className="label-text">Instructor name</span>
                                 </label>
-                                <input type="text" placeholder="instructorName" {...register("instructorName")} className="input input-bordered" />
+                                <input type="text" defaultValue={user.displayName}  readOnly placeholder="instructorName" {...register("instructorName")} className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" placeholder="email" {...register("email", { required: true })} className="input input-bordered" />
+                                <input type="email" defaultValue={user.email}  readOnly placeholder="email" {...register("email", { required: true })} className="input input-bordered" />
 
                             </div>
                             <div className="form-control">
