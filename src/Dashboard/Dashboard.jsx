@@ -41,7 +41,7 @@ const Dashboard = () => {
                         {
                             isAdmin === "student" && <>
                                 <li><Link to="selectedClass">My Selected Classes</Link></li>
-                                <li><Link to="myClass">My Class</Link></li>
+                                <li><Link to="#">My Enroll Class</Link></li>
                             </>
                         }
                     </ul>

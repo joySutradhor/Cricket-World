@@ -16,6 +16,7 @@ import AllUsers from '../../Dashboard/Admin/AllUsers';
 import AddClass from '../../Dashboard/Instructor/AddClass';
 import ManageClass from '../../Dashboard/Admin/ManageClass';
 import MyClass from '../../Dashboard/Instructor/MyClass';
+import Instructor from '../Pages/Instructor/Instructor';
 
 
 export const router = createBrowserRouter([
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>
       },
+      {
+        path : "instructors" ,
+        element : <Instructor></Instructor>
+      }
 
     ]
   },
