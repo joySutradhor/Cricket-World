@@ -4,14 +4,14 @@ import { AuthContext } from '../Client/Providers/Providers';
 
 
 const Dashboard = () => {
-    const {user} = useContext(AuthContext)
-    const [isAdmin , setAdmin] = useState("")
+    const { user } = useContext(AuthContext)
+    const [isAdmin, setAdmin] = useState("")
     fetch(`http://localhost:5000/users/role/${user.email}`)
-    .then(res => res.json())
-    .then(data =>{
-        setAdmin(data.role)
-    })
-    
+        .then(res => res.json())
+        .then(data => {
+            setAdmin(data.role)
+        })
+
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -28,21 +28,21 @@ const Dashboard = () => {
                         {/* Sidebar content here */}
                         {
                             isAdmin === 'admin' && <>
-                                <li><a>Manage Classes</a></li>
+                                <li><Link to='manageClass'>Manage Class</Link></li>
                                 <li><Link to="allUsers">Manage Users</Link></li>
-                            </>  
+                            </>
                         }
                         {
                             isAdmin === "instructor" && <>
-                            <p>Add a Class</p>
-                            <p>My Classes</p>
+                                <li><Link to="addClass">Add a class</Link></li>
+                                <li><Link to="myClass">My Class</Link></li>
                             </>
                         }
                         {
                             isAdmin === "student" && <>
-                            
-                            <p>studen</p>
-                            <p>done</p>
+
+                                <p>studen</p>
+                                <p>done</p>
                             </>
                         }
                     </ul>

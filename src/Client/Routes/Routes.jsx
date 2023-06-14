@@ -1,8 +1,8 @@
 import React from 'react';
 
 import {
-    createBrowserRouter,
-  } from "react-router-dom";
+  createBrowserRouter,
+} from "react-router-dom";
 import Main from '../Layout/Main';
 import Register from '../Pages/Register/Register';
 import Login from '../Pages/Login/Login';
@@ -13,47 +13,63 @@ import Dashboard from '../../Dashboard/Dashboard';
 import SelectedClass from '../../Dashboard/Pages/SelectedClass';
 import PrivateRoute from './../Shared/PrivateRoute';
 import AllUsers from '../../Dashboard/Admin/AllUsers';
+import AddClass from '../../Dashboard/Instructor/AddClass';
+import ManageClass from '../../Dashboard/Admin/ManageClass';
+import MyClass from '../../Dashboard/Instructor/MyClass';
 
-  export const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children : [
-       {
-        path : "/" ,
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
         element: <Home></Home>
-       },
-       {
-        path : "/classes",
-        element : <PopularClass></PopularClass>
-       } , 
+      },
+      {
+        path: "/classes",
+        element: <PopularClass></PopularClass>
+      },
 
-       {
-        path : "/login" ,  
+      {
+        path: "/login",
         element: <Login></Login>
-       },
-       {
-        path : "/register" ,
-        element : <Register></Register>
-       },
-       
-      ]
-    },
-    {
-      path: "/dashboard",
-      element : <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
-      children : [
-        {
-          path : "selectedClass" ,
-          element : <SelectedClass></SelectedClass>
-        } ,
-        {
-          path : "allusers" ,
-          element : <AllUsers></AllUsers>
-        }
-      ]
-    }
-   
-     
-  ]);
+      },
+      {
+        path: "/register",
+        element: <Register></Register>
+      },
+
+    ]
+  },
+  {
+    path: "/dashboard",
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    children: [
+      {
+        path: "selectedClass",
+        element: <SelectedClass></SelectedClass>
+      },
+      {
+        path: "allusers",
+        element: <AllUsers></AllUsers>
+      },
+      {
+        path: "addClass",
+        element: <AddClass></AddClass>
+      },
+      {
+        path : "myClass",
+        element : <MyClass></MyClass>
+      } , 
+      {
+        path : "manageClass" ,
+        element : <ManageClass></ManageClass>
+      }
+    ]
+  }
+
+
+]);
 
